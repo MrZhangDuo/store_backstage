@@ -9,8 +9,16 @@ spring:
     url: jdbc:mysql://127.0.0.1/store?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
+  jpa:
+    database: MYSQL
+    show-sql: true
 
 
 mybatis-plus:
   type-aliases-package:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+logging:
+  level:
+    com.jeff.mapper: DEBUG
