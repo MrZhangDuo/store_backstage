@@ -3,6 +3,7 @@ package com.hy.store_backstage.affirm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hy.store_backstage.affirm.entity.Affirm;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.SelectProvider;
 
 /**
  * <p>
