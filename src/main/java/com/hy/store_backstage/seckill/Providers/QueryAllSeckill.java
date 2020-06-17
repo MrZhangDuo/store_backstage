@@ -26,16 +26,16 @@ public class QueryAllSeckill implements Serializable {
         StringBuffer stringBuffer = new StringBuffer("SELECT s.*,COUNT(scom.`seckillId`)seckillComNum FROM seckill s LEFT JOIN seckillcommodity scom ON s.`seckillId`=scom.`seckillId` where 1=1  ");
         if (!StringUtils.isEmpty(seckillBo)){
             if(!StringUtils.isEmpty(seckillBo.getSeckillTitle())){
-                stringBuffer.append(" and seckillTitle like '%"+seckillBo.getSeckillTitle()+"%'");
+                stringBuffer.append(" and s.seckillTitle like '%"+seckillBo.getSeckillTitle()+"%'");
             }
             if(!StringUtils.isEmpty(seckillBo.getSeckillStatus())){
-                stringBuffer.append(" and seckillStatus ="+seckillBo.getSeckillStatus()+"");
+                stringBuffer.append(" and s.seckillStatus ="+seckillBo.getSeckillStatus()+"");
             }
             if(!StringUtils.isEmpty(seckillBo.getStartTime()) && !StringUtils.isEmpty(seckillBo.getEndTime())){
-                stringBuffer.append(" and startTime BETWEEN "+seckillBo.getStartTime()+" and "+seckillBo.getEndTime()+"");
+                stringBuffer.append(" and s.startTime BETWEEN '"+seckillBo.getStartTime()+"' and '"+seckillBo.getEndTime()+"'");
             }
         }
-        stringBuffer.append(" GROUP BY scom.`seckillId`");
+        stringBuffer.append(" GROUP BY s.`seckillId` ORDER BY s.`sort` desc");
         return stringBuffer.toString();
     }
 }

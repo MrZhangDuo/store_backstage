@@ -51,4 +51,9 @@ public class User implements Serializable {
      * 用户状态
      */
     private boolean userStatus=true;
+
+    /**
+     * 用户头像
+     */
+    private String userImg;
 }

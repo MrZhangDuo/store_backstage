@@ -1,8 +1,11 @@
 package com.hy.store_backstage.orders.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.hy.store_backstage.orders.entity.Orders;
 import com.hy.store_backstage.orders.entity.bo.OrdersCommodity;
 import com.hy.store_backstage.orders.service.impl.OrdersServiceImpl;
+import com.hy.store_backstage.utils.ReturnJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +26,7 @@ import java.util.List;
 @RestController
 @Transactional
 @RequestMapping("/orders")
+@CrossOrigin
 public class OrdersController {
 
     @Autowired
@@ -36,11 +40,39 @@ public class OrdersController {
      * @Param
      * @return List<OrdersCommodity>
      **/
-    @CrossOrigin
     @RequestMapping(value = "/queryAllOrders" , method = RequestMethod.GET)
-    public List<OrdersCommodity> queryAllOrders() {
-        System.out.println(1111111111);
-        return this.ordersService.queryAllOrders();
+    public IPage<OrdersCommodity> queryAllOrders(String orderStatus,String orderPeople, Integer currentPage, Integer pageSize) {
+        return this.ordersService.queryAllOrders(orderStatus,orderPeople,currentPage,pageSize);
     }
 
+    @RequestMapping("queryOrderById")
+    public Orders queryOrderById(Long orderId){
+        return ordersService.queryOrderById(orderId);
+    }
+
+    @RequestMapping("updateOrderById")
+    public ReturnJson updateOrderById(Orders orders,String orderTimes){
+        return ordersService.updateOrderById(orders,orderTimes);
+    }
+
+    @RequestMapping("ordersMoneyCountBZ")
+    public List<Double> ordersMoneyCountBZ() {
+        return ordersService.ordersMoneyCountBZ();
+    }
+
+    @RequestMapping("ordersMoneyCountSZ")
+    public List<Double> ordersMoneyCountSZ() {
+        return ordersService.ordersMoneyCountSZ();
+    }
+
+
+    @RequestMapping("ordersCountBZ")
+    public List<Integer> ordersCountBZ() {
+        return ordersService.ordersCountBZ();
+    }
+
+    @RequestMapping("ordersCountSZ")
+    public List<Integer> ordersCountSZ() {
+        return ordersService.ordersCountSZ();
+    }
 }
