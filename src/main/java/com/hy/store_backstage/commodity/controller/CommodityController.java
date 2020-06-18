@@ -1,17 +1,19 @@
 package com.hy.store_backstage.commodity.controller;
 
 import com.hy.store_backstage.commodity.entity.AuditEntity;
+import com.hy.store_backstage.commodity.entity.ComAndReper;
 import com.hy.store_backstage.commodity.entity.CommodityEntity;
-import com.hy.store_backstage.commodity.entity.OneClassifyEntity;
-import com.hy.store_backstage.commodity.entity.TwoClassifyEntity;
+import com.hy.store_backstage.commodity.mapper.CommodityMapper;
 import com.hy.store_backstage.commodity.service.impl.CommodityServiceImpl;
+import com.hy.store_backstage.commodity.service.impl.RepertoryService;
+import com.hy.store_backstage.commodity.service.impl.SizeAndColorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -27,22 +29,14 @@ public class CommodityController {
 
     @Autowired
     private CommodityServiceImpl commodityService;
+    @Resource
+    private CommodityMapper commodity;
+    @Autowired
+    private SizeAndColorServiceImpl sizeAndColorService;
+    @Autowired
+    private RepertoryService repertoryService;
 
-
-    /*查询商品的所有信息*/
-//    @RequestMapping("/selectCommodityInfo.do")
-//    @ResponseBody
-//    public Pages selectCommodityInfo(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam(value = "limit", defaultValue = "3")Integer limit){
-//        List<CommodityEntity> page1 = commodityService.selectCommodityInfo(page,limit);
-//        PageInfo pageInfo = new PageInfo(page1);
-//
-//        Pages pages = new Pages();
-//        pages.setCode(0);
-//        pages.setCount(Integer.parseInt(String.valueOf(pageInfo.getTotal())));/*Count数据总条数*/
-//        pages.setMsg("");
-//        pages.setData(pageInfo.getList());/*数据信息*/
-//        return pages;
-//    };
+   /*查询商品的所有信息*/
     @RequestMapping("/selectCommodityInfo.do")
     @ResponseBody
     @CrossOrigin
@@ -113,25 +107,8 @@ public class CommodityController {
     public List<CommodityEntity> selectLikeInfo(CommodityEntity commodityEntity){
         return commodityService.selectLikeInfo(commodityEntity);
     };
-/*222222222222222222222222222222222222222222222222222222222222222222222222222222222222*/
-    // 查询一级分类的所有信息
-    @RequestMapping("/selectOneClassify.do")
-    @ResponseBody
-    @CrossOrigin
-    public List<OneClassifyEntity>  selectOneClassify(){
-        return commodityService.selectOneClassify();
-    };
-
-    //   根据一级id查询二级分类的所有信息
-    @RequestMapping("/selectTwoClassify.do")
-    @ResponseBody
-    @CrossOrigin
-    public List<TwoClassifyEntity>  selectTwoClassify(Integer oneid){
-        return commodityService.selectTwoClassify(oneid);
-    };
-
     /*33333333333333333333333333333333333333333333333333333333333333333333333333*/
-    /*商品审核  查询待审核的商品数量*/
+    /*商品审核  查询待审核的商品信息*/
     @RequestMapping("/selectCheckCommodity.do")
     @ResponseBody
     @CrossOrigin
@@ -151,9 +128,11 @@ public class CommodityController {
     @ResponseBody
     @CrossOrigin
     public void updateCheckCommodity(CommodityEntity commodityEntity){
+
         commodityService.updateById(commodityEntity);
         commodityService.addAuditInfo(commodityEntity);
     }
+
     /*根据商品id查询商品的审核详情*/
     @RequestMapping("/selectAuditById.do")
     @ResponseBody
@@ -161,4 +140,36 @@ public class CommodityController {
     public List<AuditEntity>  selectAuditById(Integer comId){
         return commodityService.selectAuditById(comId);
     };
+
+    /*33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333*/
+    /*添加商品*/
+    @PostMapping("/addCommodity.do")
+    @ResponseBody
+    @CrossOrigin
+    public void addCommodity(@RequestBody ComAndReper json){
+        Long repertoryNumber=0L;
+        LocalDateTime data=LocalDateTime.now();
+
+        String image=json.getSizeAndColors().get(0).getComImg();
+        System.out.println("获取的图片地址"+image);
+        Double money=json.getSizeAndColors().get(0).getComPrice();//获取库存中的价格
+        json.getCommodity().setComPrice(money);//将获取的价格添加到商品表中
+        json.getCommodity().setComStock(repertoryNumber);//总库存
+        json.getCommodity().setComNo(repertoryService.bianma());//设置编码
+        int returs = commodity.insert(json.getCommodity()); /*添加商品信息并返回该商品的id*/
+        for (int i = 0; i < json.getSizeAndColors().size(); i++) {
+            // 商品总库存
+            repertoryNumber+=json.getSizeAndColors().get(i).getRepertoryNumber();
+            // 库存SKU编号
+            json.getSizeAndColors().get(i).setComSku(UUID.randomUUID().toString().replace("-", "").toLowerCase());
+            json.getSizeAndColors().get(i).setDifferBoth(1);//区分出库与入库   1为入库   2为出库
+            json.getSizeAndColors().get(i).setHandleType("添加商品");
+            json.getSizeAndColors().get(i).setGooutTime(data);  //商品入库时间
+            json.getSizeAndColors().get(i).setGooutPerson("hanhan"); //添加商品的人（当前登录人）
+            json.getSizeAndColors().get(i).setComId(json.getCommodity().getComId());
+        }
+        repertoryService.saveBatch(json.getSizeAndColors(),json.getSizeAndColors().size());
+    };
+
+
 }

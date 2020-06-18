@@ -3,8 +3,6 @@ package com.hy.store_backstage.commodity.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hy.store_backstage.commodity.entity.AuditEntity;
 import com.hy.store_backstage.commodity.entity.CommodityEntity;
-import com.hy.store_backstage.commodity.entity.OneClassifyEntity;
-import com.hy.store_backstage.commodity.entity.TwoClassifyEntity;
 
 import java.util.List;
 
@@ -38,17 +36,12 @@ public interface ICommodityService extends IService<CommodityEntity> {
     /*根据商品id查询商品的审核详情*/
     public List<AuditEntity> selectAuditById(Integer comid);
 
-
-
-
-    // 查询一级分类的所有信息
-    public List<OneClassifyEntity>  selectOneClassify();
-
-    //   根据一级id查询二级分类的所有信息
-    public List<TwoClassifyEntity>  selectTwoClassify(Integer oneid);
-
     /*商品审核  查询待审核的商品数量*/
     public List<CommodityEntity> selectCheckCommodity();
     /*根据id查询商品的信息*/
     public CommodityEntity selectCommodityById(Integer comId);
+
+    /*33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333*/
+    /*添加商品*/
+    public void addCommodity(CommodityEntity commodityEntity);
 }

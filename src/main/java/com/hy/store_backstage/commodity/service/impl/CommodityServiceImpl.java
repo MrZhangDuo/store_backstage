@@ -3,11 +3,7 @@ package com.hy.store_backstage.commodity.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hy.store_backstage.commodity.entity.AuditEntity;
 import com.hy.store_backstage.commodity.entity.CommodityEntity;
-import com.hy.store_backstage.commodity.entity.OneClassifyEntity;
-import com.hy.store_backstage.commodity.entity.TwoClassifyEntity;
 import com.hy.store_backstage.commodity.mapper.CommodityMapper;
-import com.hy.store_backstage.commodity.mapper.OneClassifyMapper;
-import com.hy.store_backstage.commodity.mapper.TowClassifyMapper;
 import com.hy.store_backstage.commodity.service.ICommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +25,7 @@ import java.util.List;
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, CommodityEntity> implements ICommodityService {
   @Autowired
    private CommodityMapper commodityMapper;
-  @Autowired
-   private OneClassifyMapper oneClassifyMapper;
-  @Autowired
-   private TowClassifyMapper towClassifyMapper;
+
     /*查询商品的所有信息*/
 //    public List<CommodityEntity> selectCommodityInfo(Integer currentPage, Integer pageSize){
 //        Page page= PageHelper.startPage(currentPage,pageSize,true);
@@ -80,23 +73,24 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     public List<AuditEntity>  selectAuditById(Integer comid){
        return commodityMapper.selectAuditById(comid);
     };
- /*222222222222222222222222222222222222222222222222222222222222222222222222222222222222222*/
-     // 查询一级分类的所有信息
-     public List<OneClassifyEntity>  selectOneClassify(){
-        return oneClassifyMapper.selectOneClassify();
-     };
 
-    //   根据一级id查询二级分类的所有信息
-    public List<TwoClassifyEntity>  selectTwoClassify(Integer oneid){
-       return towClassifyMapper.selectTwoClassify(oneid);
-    };
-    /*333333333333333333333333333333333333333333333333333333333333333333*/
+    /*222222222222222222222222222222222222222222222222222222222222222222222222222222222222222*/
+
     /*商品审核  查询待审核的商品数量*/
     public List<CommodityEntity> selectCheckCommodity(){
         return commodityMapper.selectCheckCommodity();
     };
+
     /*根据id查询商品的信息*/
     public CommodityEntity selectCommodityById(Integer comId){
         return commodityMapper.selectCommodityById(comId);
     };
+
+    /*33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333*/
+    /*添加商品*/
+    public void addCommodity(CommodityEntity commodityEntity){
+        commodityMapper.addCommodity(commodityEntity);
+    };
+
 }
+

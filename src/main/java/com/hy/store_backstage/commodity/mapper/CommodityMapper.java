@@ -3,10 +3,7 @@ package com.hy.store_backstage.commodity.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hy.store_backstage.commodity.entity.AuditEntity;
 import com.hy.store_backstage.commodity.entity.CommodityEntity;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ import java.util.List;
 public interface CommodityMapper extends BaseMapper<CommodityEntity> {
 
     /*查询商品的所有信息*/
-    @Select("SELECT * FROM commodity")
+    @Select("SELECT * FROM commodity ORDER BY com_label")
     public List<CommodityEntity> selectCommodityInfo();
     /*查询所有商品数量*/
     @Select("select count(com_id) from commodity")
@@ -37,7 +34,6 @@ public interface CommodityMapper extends BaseMapper<CommodityEntity> {
     @SelectProvider(type = UniteSelect.class ,method="selectLike" )
     public List<CommodityEntity> selectLikeInfo(CommodityEntity commodityEntity);
 
-
     /*查询待审核商品数量*/
     @Select("select count(com_id) from commodity where com_state='2'")
     public Integer selectCheckNum();
@@ -51,14 +47,19 @@ public interface CommodityMapper extends BaseMapper<CommodityEntity> {
     @Select("select * from audit where com_id=#{value}")
     public List<AuditEntity> selectAuditById(Integer comid);
 
-/*3333333333333333333333333333333333333333333333333333333333333333333333333333*/
+    /*222222222222222222222222222222222222222222222222222222222222222222222222222222222222222*/
     /*商品审核  查询待审核的商品信息*/
-    @Select("select * from commodity where com_state='2' and com_label='上架'")
+    @Select("select * from commodity where com_state='2' and com_label='未上架'")
     public List<CommodityEntity> selectCheckCommodity();
+
     /*根据id查询商品的信息*/
     @Select("select * from commodity where com_id=#{value}")
     public CommodityEntity selectCommodityById(Integer comId);
 
+    /*33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333*/
+    /*添加商品*/
+    @Insert("insert into commodity(com_name,com_brand,com_no) values(#{comName},#{comBrand},#{comNo})")
+    public void addCommodity(CommodityEntity commodityEntity);
 
 
 }
