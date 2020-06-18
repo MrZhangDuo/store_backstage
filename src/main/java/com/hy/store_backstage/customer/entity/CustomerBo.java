@@ -2,27 +2,19 @@ package com.hy.store_backstage.customer.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author Zhangduo
- * @since 2020-06-04
+ * @ClassName CustomerBo
+ * @Description TODO
+ * @Author zhangduo
+ * @Date 2020/6/15 14:48
+ * @Version 1.0
  */
-@TableName("customer")
 @Data
-public class Customer implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class CustomerBo {
     /**
      * 客户主键
      */
@@ -50,5 +42,16 @@ public class Customer implements Serializable {
     private String accountStatus;
 
     private LocalDate times;
+
+    private Double orderMony;
+
+    private Long orderCount;
+
+    private String zcTimes;
+
+    private Integer currentPage;
+
+    private Integer pageSize;
+
 
 }

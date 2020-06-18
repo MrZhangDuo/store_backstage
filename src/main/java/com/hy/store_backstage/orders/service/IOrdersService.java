@@ -1,9 +1,11 @@
 package com.hy.store_backstage.orders.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hy.store_backstage.orders.entity.Orders;
 import com.hy.store_backstage.orders.entity.bo.OrdersCommodity;
 import com.hy.store_backstage.orders.mapper.OrdersMapper;
+import com.hy.store_backstage.utils.ReturnJson;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -25,6 +27,13 @@ public interface IOrdersService extends IService<Orders> {
      * @Param
      * @return
      **/
-    List<OrdersCommodity> queryAllOrders();
+    IPage<OrdersCommodity> queryAllOrders(String orderStatus,String orderPeople, Integer currentPage, Integer pageSize);
+
+    List<Double> ordersMoneyCountBZ();
+    List<Double> ordersMoneyCountSZ();
+    List<Integer> ordersCountBZ();
+    List<Integer> ordersCountSZ();
+    Orders queryOrderById(Long orderId);
+    ReturnJson updateOrderById(Orders orders,String orderTimes);
 
 }
