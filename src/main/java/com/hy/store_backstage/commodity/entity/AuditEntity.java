@@ -3,20 +3,16 @@ package com.hy.store_backstage.commodity.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @TableName("audit")
 public class AuditEntity implements Serializable {
     @TableId(value = "a_id", type = IdType.AUTO)
     private Integer aId;
     private Integer comId;
-    @DateTimeFormat(pattern = "YYYY/MM/dd hh:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date aTime;
+    private LocalDateTime aTime;
     private String aPerson ;
     private Integer comState ;
     private String comDetail;
@@ -37,11 +33,11 @@ public class AuditEntity implements Serializable {
         this.comId = comId;
     }
 
-    public Date getaTime() {
+    public LocalDateTime getaTime() {
         return aTime;
     }
 
-    public void setaTime(Date aTime) {
+    public void setaTime(LocalDateTime aTime) {
         this.aTime = aTime;
     }
 

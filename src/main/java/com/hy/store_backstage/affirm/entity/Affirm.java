@@ -2,7 +2,6 @@ package com.hy.store_backstage.affirm.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
  * @author Zhangduo
  * @since 2020-06-04
  */
-@Data
 public class Affirm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,4 +53,77 @@ public class Affirm implements Serializable {
      * 订单状态
      */
     private String orderStatus;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getAffirmId() {
+        return affirmId;
+    }
+
+    public void setAffirmId(Long affirmId) {
+        this.affirmId = affirmId;
+    }
+
+    public String getAffirmNo() {
+        return affirmNo;
+    }
+
+    public void setAffirmNo(String affirmNo) {
+        this.affirmNo = affirmNo;
+    }
+
+    public LocalDateTime getAffirmTime() {
+        return affirmTime;
+    }
+
+    public void setAffirmTime(LocalDateTime affirmTime) {
+        this.affirmTime = affirmTime;
+    }
+
+    public String getAffirmCustAccount() {
+        return affirmCustAccount;
+    }
+
+    public void setAffirmCustAccount(String affirmCustAccount) {
+        this.affirmCustAccount = affirmCustAccount;
+    }
+
+    public String getAffirmPeople() {
+        return affirmPeople;
+    }
+
+    public void setAffirmPeople(String affirmPeople) {
+        this.affirmPeople = affirmPeople;
+    }
+
+    public Double getOrderMony() {
+        return orderMony;
+    }
+
+    public void setOrderMony(Double orderMony) {
+        this.orderMony = orderMony;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Affirm{" +
+                "affirmId=" + affirmId +
+                ", affirmNo='" + affirmNo + '\'' +
+                ", affirmTime=" + affirmTime +
+                ", affirmCustAccount='" + affirmCustAccount + '\'' +
+                ", affirmPeople='" + affirmPeople + '\'' +
+                ", orderMony=" + orderMony +
+                ", orderStatus='" + orderStatus + '\'' +
+                '}';
+    }
 }

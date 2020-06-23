@@ -17,7 +17,7 @@ public class CommodityEntity implements Serializable {
      * 商品主键
      */
     @TableId(value = "com_id", type = IdType.AUTO)
-    private Integer comId;
+    private Long comId;
 
     /**
      * 商品编号
@@ -67,7 +67,7 @@ public class CommodityEntity implements Serializable {
     /**
      * 商品品牌
      */
-    private Integer comBrand;
+    private String comBrand;
 
     /**
      * 商品分类
@@ -75,6 +75,8 @@ public class CommodityEntity implements Serializable {
 
     private Long comType;
     private  String comDetail;
+
+
 
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
@@ -85,11 +87,11 @@ public class CommodityEntity implements Serializable {
         return serialVersionUID;
     }
 
-    public Integer getComId() {
+    public Long getComId() {
         return comId;
     }
 
-    public void setComId(Integer comId) {
+    public void setComId(Long comId) {
         this.comId = comId;
     }
 
@@ -165,11 +167,11 @@ public class CommodityEntity implements Serializable {
         this.comState = comState;
     }
 
-    public Integer getComBrand() {
+    public String getComBrand() {
         return comBrand;
     }
 
-    public void setComBrand(Integer comBrand) {
+    public void setComBrand(String comBrand) {
         this.comBrand = comBrand;
     }
 
