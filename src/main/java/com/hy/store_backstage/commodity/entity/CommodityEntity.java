@@ -76,6 +76,8 @@ public class CommodityEntity implements Serializable {
     private Long comType;
     private  String comDetail;
 
+
+
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
     private Date aTime;

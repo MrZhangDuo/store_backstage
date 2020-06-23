@@ -1,5 +1,6 @@
 package com.hy.store_backstage.commodity.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hy.store_backstage.commodity.entity.EvaluateFEntity;
 import com.hy.store_backstage.commodity.entity.EvaluateSEntity;
 import com.hy.store_backstage.commodity.service.impl.EvaluateFService;
@@ -37,13 +38,8 @@ public class EvaluateController {
     /*根据父评论下的所有子评论*/
     @RequestMapping("/selectSonInfo.do")
     @ResponseBody
-    public List<EvaluateSEntity> selectSonInfo(Integer evaId){
-        List<EvaluateSEntity> aa= evaluateFService.selectSonInfo(evaId);
-        for (int i = 0; i < aa.size(); i++) {
-            System.out.println(aa.get(i).getSonContent()+aa.get(i).getSonPerson()+aa.get(i).getSonTime());
-        }
-//        return evaluateFService.selectSonInfo(evaId);
-        return aa;
+    public IPage<EvaluateSEntity> selectSonInfo(Integer currentPage, Integer pageSize,Integer evaId){
+        return evaluateFService.selectSonInfo(currentPage,pageSize,evaId);
     };
 
     /*添加管理员评论的信息*/
@@ -58,7 +54,21 @@ public class EvaluateController {
     /*根据商品名称或用户昵称模糊查询父评价*/
     @RequestMapping("/selectPingjiaLike.do")
     @ResponseBody
-    public List<EvaluateFEntity> selectPingjiaLike(EvaluateFEntity evaluateFEntity){
-        return evaluateFService.selectPingjiaLike(evaluateFEntity);
+    public IPage<EvaluateFEntity> selectPingjiaLike(Integer currentPage, Integer pageSize,EvaluateFEntity evaluateFEntity){
+        return evaluateFService.selectPingjiaLike(currentPage,pageSize,evaluateFEntity);
+    };
+
+    /*查询父商品评价的条数*/
+    @RequestMapping("/countEva.do")
+    @ResponseBody
+    public Integer countEva(){
+        return evaluateFService.countEva();
+    };
+
+    /*查询父评论下子评论的数量*/
+    @RequestMapping("/sonNumber.do")
+    @ResponseBody
+    public Integer sonNumber(Integer evaId){
+        return evaluateFService.sonNumber(evaId);
     };
 }

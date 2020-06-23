@@ -16,6 +16,9 @@ public class EvaluateFEntity {
     private LocalDateTime evaTime;
     private String evaIstrue;
     private Integer evaStar;
+    private Integer evaCollect;
+    private Integer evaReads;
+
 
     public Integer getEvaId() {
         return evaId;
@@ -73,6 +76,22 @@ public class EvaluateFEntity {
         this.evaStar = evaStar;
     }
 
+    public Integer getEvaCollect() {
+        return evaCollect;
+    }
+
+    public void setEvaCollect(Integer evaCollect) {
+        this.evaCollect = evaCollect;
+    }
+
+    public Integer getEvaReads() {
+        return evaReads;
+    }
+
+    public void setEvaReads(Integer evaReads) {
+        this.evaReads = evaReads;
+    }
+
     @Override
     public String toString() {
         return "EvaluateFEntity{" +
@@ -82,7 +101,9 @@ public class EvaluateFEntity {
                 ", evaEvaluate='" + evaEvaluate + '\'' +
                 ", evaTime=" + evaTime +
                 ", evaIstrue='" + evaIstrue + '\'' +
-                ", evaStar='" + evaStar + '\'' +
+                ", evaStar=" + evaStar +
+                ", evaCollect=" + evaCollect +
+                ", evaReads=" + evaReads +
                 '}';
     }
 }

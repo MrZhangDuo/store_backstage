@@ -1,5 +1,6 @@
 package com.hy.store_backstage.commodity.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hy.store_backstage.commodity.entity.GoOutRepertoryBean;
 import com.hy.store_backstage.commodity.entity.RepertoryBean;
 import com.hy.store_backstage.commodity.service.impl.RepertoryService;
@@ -53,22 +54,35 @@ public class RepertoryController {
     /*入库信息模糊查询*/
     @RequestMapping("/selectLikeGo.do")
     @ResponseBody
-    public List<GoOutRepertoryBean> selectLikeGo(GoOutRepertoryBean goOutRepertoryBean,String gooutTimes){
+    public IPage<GoOutRepertoryBean> selectLikeGo(Integer currentPage, Integer pageSize,GoOutRepertoryBean goOutRepertoryBean, String gooutTimes){
         if(!StringUtils.isEmpty(gooutTimes)){
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             goOutRepertoryBean.setGooutTime(LocalDate.parse(gooutTimes,dateTimeFormatter));
         }
-        return repertoryService.selectLikeGo(goOutRepertoryBean);
+        return repertoryService.selectLikeGo(currentPage,pageSize,goOutRepertoryBean);
+    };
+
+    /*查询入库商品的总数量*/
+    @RequestMapping("/goNumber.do")
+    @ResponseBody
+    public Integer goNumber(){
+        return repertoryService.goNumber();
     };
 
     /*出库信息模糊查询*/
     @RequestMapping("/selectLikeOut.do")
     @ResponseBody
-    public List<GoOutRepertoryBean> selectLikeOut(GoOutRepertoryBean goOutRepertoryBean,String gooutTimes){
+    public IPage<GoOutRepertoryBean> selectLikeOut(Integer currentPage, Integer pageSize,GoOutRepertoryBean goOutRepertoryBean,String gooutTimes){
         if(!StringUtils.isEmpty(gooutTimes)){
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             goOutRepertoryBean.setGooutTime(LocalDate.parse(gooutTimes,dateTimeFormatter));
         }
-        return repertoryService.selectLikeOut(goOutRepertoryBean);
+        return repertoryService.selectLikeOut(currentPage,pageSize,goOutRepertoryBean);
+    };
+    /*查询出库商品的总数量*/
+    @RequestMapping("/outNumber.do")
+    @ResponseBody
+    public Integer outNumber(){
+        return repertoryService.outNumber();
     };
 }

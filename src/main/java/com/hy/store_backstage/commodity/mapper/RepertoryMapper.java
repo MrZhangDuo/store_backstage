@@ -1,12 +1,10 @@
 package com.hy.store_backstage.commodity.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hy.store_backstage.commodity.entity.GoOutRepertoryBean;
 import com.hy.store_backstage.commodity.entity.RepertoryBean;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,25 +23,30 @@ public interface RepertoryMapper extends BaseMapper<RepertoryBean> {
     public String bianma();
 
     /*查询商品入库的信息*/
-    @Select("SELECT C.com_img AS 'comImg',C.com_name AS 'comName',C.com_brand AS 'comBrand',C.com_no AS 'comNo',O.order_no AS 'orderNo',\n" +
-            "G.handle_type AS 'handleType',G.goout_time AS 'gooutTime',G.goout_person AS 'gooutPerson',G.color_name AS colorName,\n" +
-            "G.size_name AS sizeName,G.goout_number AS gooutNumber,(G.repertory_number+G.goout_number) AS repertoryNumber \n" +
-            "FROM commodity C,orders O,commodity_goout G WHERE C.com_id=O.order_commodity AND C.com_id=G.com_id AND G.differ_both=1")
+    @Select("   SELECT c.com_img comImg,c.com_name comName,c.com_no comNo,g.size_name sizeName,g.color_name colorName,g.goout_number gooutNumber,\n" +
+            "   (g.goout_number+g.repertory_number) repertoryNumber,g.handle_type handleType,g.goout_time gooutTime,g.goout_person gooutPerson,o.order_no orderNo \n" +
+            "   FROM commodity c,commodity_goout g,orders o WHERE c.com_id=g.com_id AND g.`order_id`= o.`order_id` AND differ_both=1")
     public List<GoOutRepertoryBean> selectGo();
 
     /*查询商品出库的信息*/
-    @Select("SELECT C.com_img AS 'comImg',C.com_name AS 'comName',C.com_brand AS 'comBrand',C.com_no AS 'comNo',O.order_no AS 'orderNo', \n" +
-            "G.handle_type AS 'handleType',G.goout_time AS 'gooutTime',G.goout_person AS 'gooutPerson',G.color_name AS colorName,\n" +
-            "G.size_name AS sizeName,G.goout_number AS gooutNumber,(G.repertory_number+G.goout_number) AS repertoryNumber \n" +
-            "FROM commodity C,orders O,commodity_goout G WHERE C.com_id=O.order_commodity AND C.com_id=G.com_id AND G.differ_both=2")
+    @Select("   SELECT c.com_img comImg,c.com_name comName,c.com_no comNo,g.size_name sizeName,g.color_name colorName,g.goout_number gooutNumber,\n" +
+            "   (g.goout_number+g.repertory_number) repertoryNumber,g.handle_type handleType,g.goout_time gooutTime,g.goout_person gooutPerson,o.order_no orderNo \n" +
+            "   FROM commodity c,commodity_goout g,orders o WHERE c.com_id=g.com_id AND g.`order_id`= o.`order_id` AND differ_both=2")
     public List<GoOutRepertoryBean> selectOut();
 
     /*入库信息模糊查询*/
     @SelectProvider(type = UniteSelect.class ,method="selectLikeGo" )
-    public List<GoOutRepertoryBean> selectLikeGo(GoOutRepertoryBean goOutRepertoryBean);
+    public IPage<GoOutRepertoryBean> selectLikeGo(@Param("ipage") IPage<GoOutRepertoryBean> page,@Param("goOutRepertoryBean") GoOutRepertoryBean goOutRepertoryBean);
+
+    /*查询入库商品的总数量*/
+    @Select("SELECT COUNT(goout_id) FROM commodity_goout WHERE differ_both=1")
+    public Integer goNumber();
 
     /*出库信息模糊查询*/
     @SelectProvider(type = UniteSelect.class ,method="selectLikeOut" )
-    public List<GoOutRepertoryBean> selectLikeOut(GoOutRepertoryBean goOutRepertoryBean);
+    public IPage<GoOutRepertoryBean> selectLikeOut(@Param("ipage") IPage<GoOutRepertoryBean> page,@Param("goOutRepertoryBean") GoOutRepertoryBean goOutRepertoryBean);
 
+    /*查询出库商品的总数量*/
+    @Select("SELECT COUNT(goout_id) FROM commodity_goout WHERE differ_both=2")
+    public Integer outNumber();
 }

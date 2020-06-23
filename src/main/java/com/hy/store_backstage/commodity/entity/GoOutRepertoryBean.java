@@ -9,7 +9,8 @@ public class GoOutRepertoryBean implements Serializable {
     private  String comName;
     private  String comBrand;
     private  String comNo;
-    private  String orderNo;
+    private  String orderId;
+    private String orderNo;
     private BigInteger repertoryNumber;
     private  String handleType;
     private LocalDate gooutTime;
@@ -17,6 +18,7 @@ public class GoOutRepertoryBean implements Serializable {
     private String colorName;
     private String sizeName;
     private BigInteger gooutNumber;
+
 
     public String getComImg() {
         return comImg;
@@ -50,12 +52,12 @@ public class GoOutRepertoryBean implements Serializable {
         this.comNo = comNo;
     }
 
-    public String getOrderNo() {
-        return orderNo;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public BigInteger getRepertoryNumber() {
@@ -114,6 +116,14 @@ public class GoOutRepertoryBean implements Serializable {
         this.gooutNumber = gooutNumber;
     }
 
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
     @Override
     public String toString() {
         return "GoOutRepertoryBean{" +
@@ -121,6 +131,7 @@ public class GoOutRepertoryBean implements Serializable {
                 ", comName='" + comName + '\'' +
                 ", comBrand='" + comBrand + '\'' +
                 ", comNo='" + comNo + '\'' +
+                ", orderId='" + orderId + '\'' +
                 ", orderNo='" + orderNo + '\'' +
                 ", repertoryNumber=" + repertoryNumber +
                 ", handleType='" + handleType + '\'' +
