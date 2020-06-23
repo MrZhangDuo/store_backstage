@@ -25,6 +25,9 @@ public interface PermissionMapper extends BaseMapper<Permission> {
     @SelectProvider(type = QueryMyPermission.class, method = "queryMyPermission")
     Set<Integer> queryMyPermission(Integer roleid);
 
+    @SelectProvider(type = QueryMyPermission.class, method = "currentUserRolePermission")
+    Set<String> currentUserRolePermission(Long userId);
+
     @InsertProvider(type = UpdateRolePermission.class, method = "updateRolePermission")
     Integer updateRolePermission(Integer roleid, Integer[] permission);
 

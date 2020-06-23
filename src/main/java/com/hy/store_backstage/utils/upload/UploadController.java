@@ -1,6 +1,5 @@
 package com.hy.store_backstage.utils.upload;
 
-import com.hy.store_backstage.utils.uploadimage.UploadImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;

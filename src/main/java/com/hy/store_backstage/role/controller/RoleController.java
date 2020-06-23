@@ -58,7 +58,7 @@ public class RoleController {
     /**
      * @Author zhangduo
      * @Description //TODO 修改某个用户的角色
-     * @Date 16:16 2020/6/7
+     * @Date 10:13 2020/6/17
      * @Param [userId, rid]
      * @return com.hy.store_backstage.utils.ReturnJson
      **/
@@ -71,9 +71,9 @@ public class RoleController {
     /**
      * @Author zhangduo
      * @Description //TODO 插入角色信息
-     * @Date 16:19 2020/6/7
-     * @Param []
-     * @return java.util.List<com.hy.store_backstage.role.entity.Role>
+     * @Date 10:13 2020/6/17
+     * @Param [role]
+     * @return com.hy.store_backstage.utils.ReturnJson
      **/
     @CrossOrigin
     @RequestMapping(value = "addRole",method = RequestMethod.GET)
@@ -84,9 +84,9 @@ public class RoleController {
     /**
      * @Author zhangduo
      * @Description //TODO 删除角色信息
-     * @Date 16:19 2020/6/7
-     * @Param []
-     * @return java.util.List<com.hy.store_backstage.role.entity.Role>
+     * @Date 10:13 2020/6/17
+     * @Param [roleId]
+     * @return com.hy.store_backstage.utils.ReturnJson
      **/
     @CrossOrigin
     @RequestMapping(value = "deleteRole",method = RequestMethod.GET)
@@ -97,9 +97,9 @@ public class RoleController {
     /**
      * @Author zhangduo
      * @Description //TODO 查询某个角色信息
-     * @Date 16:20 2020/6/7
-     * @Param []
-     * @return java.util.List<com.hy.store_backstage.role.entity.Role>
+     * @Date 10:12 2020/6/17
+     * @Param [roleId]
+     * @return com.hy.store_backstage.role.entity.Role
      **/
     @CrossOrigin
     @RequestMapping(value = "queryRoleById",method = RequestMethod.GET)
@@ -109,10 +109,10 @@ public class RoleController {
 
     /**
      * @Author zhangduo
-     * @Description //TODO
-     * @Date 16:19 2020/6/7
-     * @Param []
-     * @return java.util.List<com.hy.store_backstage.role.entity.Role>
+     * @Description //TODO 修改某个角色信息
+     * @Date 10:13 2020/6/17
+     * @Param [role]
+     * @return com.hy.store_backstage.utils.ReturnJson
      **/
     @CrossOrigin
     @RequestMapping(value = "updateRole",method = RequestMethod.GET)

@@ -1,11 +1,13 @@
 package com.hy.store_backstage.user.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * <p>
@@ -19,7 +21,7 @@ import java.io.Serializable;
 @TableName("user")
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+
 
     /**
      * 用户主键
@@ -56,4 +58,9 @@ public class User implements Serializable {
      * 用户头像
      */
     private String userImg;
+
+    @TableField(exist = false)
+    private Set<String> roles;
+    @TableField(exist = false)
+    private Set<String> permissions;
 }

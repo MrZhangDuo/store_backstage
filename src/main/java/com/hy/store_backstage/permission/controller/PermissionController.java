@@ -32,13 +32,25 @@ public class PermissionController {
     @Autowired
     PermissionMapper permissionMapper;
 
+    /**
+     * @Author zhangduo
+     * @Description //TODO 查询所有权限
+     * @Date 10:14 2020/6/17
+     * @Param []
+     * @return java.util.List<com.hy.store_backstage.permission.entity.Permission>
+     **/
     @CrossOrigin
     @RequestMapping(value = "queryAllPermission" , method = RequestMethod.GET)
     public List<Permission> queryAllPermission(){
         return permissionService.queryAllPermission();
     }
-
-
+    /**
+     * @Author zhangduo
+     * @Description //TODO 查询所有权限
+     * @Date 10:14 2020/6/17
+     * @Param [roleid]
+     * @return java.lang.Object[]
+     **/
 //    @CrossOrigin
 //    @RequestMapping(value = "queryAllPermission" , method = RequestMethod.GET)
 //    public List<Permission> getparticipants(){
@@ -48,12 +60,26 @@ public class PermissionController {
 //        return tree;
 //    }
 
+    /**
+     * @Author zhangduo
+     * @Description //TODO 查询某个角色的权限
+     * @Date 10:15 2020/6/17
+     * @Param [roleid]
+     * @return java.lang.Object[]
+     **/
     @CrossOrigin
     @RequestMapping(value = "queryMyPermission" , method = RequestMethod.GET)
     public Object[] queryMyPermission(Integer roleid) {
         return permissionService.queryMyPermission(roleid);
     }
 
+    /**
+     * @Author zhangduo
+     * @Description //TODO 修改某个角色的权限
+     * @Date 10:15 2020/6/17
+     * @Param [roleid, permission]
+     * @return com.hy.store_backstage.utils.ReturnJson
+     **/
     @CrossOrigin
     @RequestMapping(value = "updateRolePermission" , method = RequestMethod.GET)
     public ReturnJson updateRolePermission(Integer roleid, Integer[] permission) {

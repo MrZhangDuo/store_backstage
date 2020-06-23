@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hy.store_backstage.user.entity.User;
 import com.hy.store_backstage.user.service.impl.UserServiceImpl;
 import com.hy.store_backstage.utils.ReturnJson;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +30,11 @@ public class UserController {
     /**
      * @Author zhangduo
      * @Description //TODO 查询所有用户信息
-     * @Date 13:32 2020/6/6
-     * @Param
-     * @return
+     * @Date 10:07 2020/6/17
+     * @Param [user, startPage, total]
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.hy.store_backstage.user.entity.User>
      **/
+    @RequiresPermissions(value = {"user:queryAllUser"})
     @CrossOrigin
     @RequestMapping(value = "queryAllUser",method = RequestMethod.GET)
     public IPage<User> queryAllUser(User user,  String startPage, String total) {
@@ -41,10 +44,11 @@ public class UserController {
     /**
      * @Author zhangduo
      * @Description //TODO 修改用户信息
-     * @Date 13:32 2020/6/6
-     * @Param
-     * @return
+     * @Date 10:07 2020/6/17
+     * @Param [user]
+     * @return com.hy.store_backstage.utils.ReturnJson
      **/
+    //@RequiresPermissions(value = {"user:updateUser"})
     @CrossOrigin
     @RequestMapping(value = "updateUser",method = RequestMethod.GET)
     public ReturnJson updateUser(User user) {
@@ -53,11 +57,12 @@ public class UserController {
 
     /**
      * @Author zhangduo
-     * @Description //TODO  添加用户信息
-     * @Date 13:31 2020/6/6
-     * @Param
-     * @return
+     * @Description //TODO 添加用户信息
+     * @Date 10:08 2020/6/17
+     * @Param [user]
+     * @return com.hy.store_backstage.utils.ReturnJson
      **/
+    @RequiresPermissions(value = {"user:addUser"})
     @CrossOrigin
     @RequestMapping(value = "addUser",method = RequestMethod.GET)
     public ReturnJson addUser(User user) {
@@ -66,11 +71,12 @@ public class UserController {
 
     /**
      * @Author zhangduo
-     * @Description //TODO  查询某个用户信息
-     * @Date 13:31 2020/6/6
-     * @Param
-     * @return
+     * @Description //TODO 查询某个用户信息
+     * @Date 10:08 2020/6/17
+     * @Param [userId]
+     * @return com.hy.store_backstage.user.entity.User
      **/
+    @RequiresPermissions(value = {"user:queryUserById"})
     @CrossOrigin(allowCredentials="true")
     @RequestMapping(value = "queryUserById",method = RequestMethod.GET)
     public User queryUserById(Integer userId) {
@@ -79,11 +85,12 @@ public class UserController {
 
     /**
      * @Author zhangduo
-     * @Description //TODO  删除某个用户
-     * @Date 16:06 2020/6/6
-     * @Param
-     * @return
+     * @Description //TODO 删除某个用户
+     * @Date 10:08 2020/6/17
+     * @Param [userId]
+     * @return com.hy.store_backstage.utils.ReturnJson
      **/
+    @RequiresPermissions(value = {"user:deleteUser"})
     @CrossOrigin(allowCredentials="true")
     @RequestMapping(value = "deleteUser",method = RequestMethod.GET)
     public ReturnJson deleteUser(Integer userId) {

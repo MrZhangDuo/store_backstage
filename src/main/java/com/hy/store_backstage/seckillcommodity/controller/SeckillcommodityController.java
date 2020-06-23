@@ -1,27 +1,15 @@
 package com.hy.store_backstage.seckillcommodity.controller;
 
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hy.store_backstage.commodity.entity.CommodityEntity;
-import com.hy.store_backstage.seckill.entity.bo.SeckillBo;
 import com.hy.store_backstage.seckillcommodity.entity.SeckillCommodityBo;
 import com.hy.store_backstage.seckillcommodity.entity.Seckillcommodity;
 import com.hy.store_backstage.seckillcommodity.service.impl.SeckillcommodityServiceImpl;
 import com.hy.store_backstage.utils.ReturnJson;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import javafx.scene.control.Tab;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -41,10 +29,10 @@ public class SeckillcommodityController {
 
     /**
      * @Author zhangduo
-     * @Description //TODO 
-     * @Date 13:55 2020/6/11
-     * @Param [seckillId]
-     * @return java.util.List<com.hy.store_backstage.seckillcommodity.entity.SeckillCommodityBo>
+     * @Description //TODO 查询某个活动下的所有秒杀商品
+     * @Date 10:26 2020/6/17
+     * @Param [seckillId, comName, currentPage, pageSize]
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.hy.store_backstage.seckillcommodity.entity.SeckillCommodityBo>
      **/
     @CrossOrigin
     @RequestMapping("queryAllSeckillCommodity")
@@ -52,18 +40,39 @@ public class SeckillcommodityController {
         return seckillcommodityService.queryAllSeckillCommodity(seckillId,comName,currentPage,pageSize);
     }
 
+    /**
+     * @Author zhangduo
+     * @Description //TODO 查询多个商品
+     * @Date 10:30 2020/6/17
+     * @Param [commodityId]
+     * @return java.util.List<com.hy.store_backstage.commodity.entity.CommodityEntity>
+     **/
     @CrossOrigin
     @RequestMapping("queryInCommodityId")
     public List<CommodityEntity> queryInCommodityId(String commodityId) {
         return seckillcommodityService.queryInCommodityId(commodityId);
     }
 
+    /**
+     * @Author zhangduo
+     * @Description //TODO 删除某个活动下的秒杀商品
+     * @Date 10:26 2020/6/17
+     * @Param [secComId]
+     * @return com.hy.store_backstage.utils.ReturnJson
+     **/
     @CrossOrigin
     @RequestMapping("deleteSeckillCommodity")
     public ReturnJson deleteSeckillCommodity(Integer secComId) {
         return seckillcommodityService.deleteSeckillCommodity(secComId);
     }
 
+    /**
+     * @Author zhangduo
+     * @Description //TODO 给某个活动添加秒杀商品
+     * @Date 10:27 2020/6/17
+     * @Param [seckillCommodityBoList, seckillId]
+     * @return com.hy.store_backstage.utils.ReturnJson
+     **/
     @CrossOrigin
     @RequestMapping(value = "addSeckillCommodity", method = RequestMethod.POST)
     public ReturnJson addSeckillCommodity(@RequestBody List<SeckillCommodityBo> seckillCommodityBoList, Long seckillId) {

@@ -1,9 +1,6 @@
 package com.hy.store_backstage.seckillcommodity.Providers;
 
 import org.springframework.util.StringUtils;
-
-import java.util.List;
-
 /**
  * @ClassName QueryAllSeckillCommodity
  * @Description TODO

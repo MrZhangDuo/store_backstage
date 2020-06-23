@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -26,6 +27,9 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     @SelectProvider(type = QueryUserMyRole.class , method = "queryUserMyRole")
     List<Role> queryUserMyRole(Integer uid);
+
+    @SelectProvider(type = QueryUserMyRole.class , method = "queryUserRole")
+    Set<String> queryUserRole(Long uid);
 
     @InsertProvider(type = UpdateUserRole.class, method = "updateUserRole")
     int updateUserRole(Integer uid, Integer[] rid);

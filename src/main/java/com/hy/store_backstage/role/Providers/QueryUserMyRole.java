@@ -15,4 +15,12 @@ public class QueryUserMyRole {
         }
         return stringBuffer.toString();
     }
+
+    public String queryUserRole(Long userId){
+        StringBuffer stringBuffer = new StringBuffer("SELECT r.role_name FROM USER u,role r ,role_user ru WHERE u.user_id= ru.uid AND r.role_id=ru.rid AND 1=1 ");
+        if(userId > 0){
+            stringBuffer.append( " and u.user_id= "+userId+"");
+        }
+        return stringBuffer.toString();
+    }
 }

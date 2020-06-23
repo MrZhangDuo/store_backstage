@@ -26,4 +26,6 @@ public interface IUserService extends IService<User> {
     User queryUserById(Integer userId);
 
     ReturnJson deleteUser(Integer userId);
+
+    User queryUserByUserAccount(String userAccount);
 }

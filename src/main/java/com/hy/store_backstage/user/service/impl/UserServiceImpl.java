@@ -4,15 +4,21 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hy.store_backstage.permission.entity.Permission;
+import com.hy.store_backstage.permission.mapper.PermissionMapper;
+import com.hy.store_backstage.role.entity.Role;
+import com.hy.store_backstage.role.mapper.RoleMapper;
 import com.hy.store_backstage.user.entity.User;
 import com.hy.store_backstage.user.mapper.UserMapper;
 import com.hy.store_backstage.user.service.IUserService;
 import com.hy.store_backstage.utils.ReturnJson;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -27,6 +33,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    RoleMapper roleMapper;
+    @Autowired
+    PermissionMapper permissionMapper;
 
     @Override
     public IPage<User> queryAllUser(User user,String startPage,String total) {
@@ -78,4 +88,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return new ReturnJson(401,"删除失败!!!");
         }
     }
+
+    @Override
+    public User queryUserByUserAccount(String userAccount) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("user_account",userAccount);
+        return userMapper.selectOne(queryWrapper);
+    }
+
+    public Set<String> queryUserRole(Long userId) {
+        return roleMapper.queryUserRole(userId);
+    }
+
+    public Set<String> currentUserRolePermission(Long userId) {
+        return permissionMapper.currentUserRolePermission(userId);
+    }
+
 }

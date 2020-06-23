@@ -1,4 +1,4 @@
-package com.hy.store_backstage.utils.uploadimage;
+package com.hy.store_backstage.utils.upload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
